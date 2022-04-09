@@ -7,15 +7,26 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    avl_tree_scale = 1.0;
 
     avl_scene = new QGraphicsScene(this);
     ui->avl_graphicsView->setScene(avl_scene);
 
     avl_tree = new AVL_tree;
+    avl_tree->Insert(9);
+    avl_tree->Insert(5);
+    avl_tree->Insert(10);
+    avl_tree->Insert(0);
+    avl_tree->Insert(6);
+    avl_tree->Insert(11);
+    avl_tree->Insert(-1);
+    avl_tree->Insert(1);
+    avl_tree->Insert(2);
 
-    for (int i = 0; i < 507; ++i) {
-        avl_tree->Insert(i + 1);
-    }
+    avl_tree->Delete(2);
+//    for (int i = 0; i < 507; ++i) {
+//        avl_tree->Insert(i + 1);
+//    }
 
     Draw_avl_tree(avl_tree->Get_root(), 0, 0);
 
@@ -36,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
 
    ui->avl_graphicsView->setDragMode(QGraphicsView::ScrollHandDrag);
    ui->avl_graphicsView->setRenderHint(QPainter::Antialiasing);
-   ui->avl_graphicsView->scale(0.2, 0.2);
+   ui->avl_graphicsView->scale(avl_tree_scale, avl_tree_scale);
 
 //    ui->avl_graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    ui->avl_graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -45,6 +56,17 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_W){
+        ui->avl_graphicsView->scale(0.9 , 0.9);
+
+    }
+    if(event->key() == Qt::Key_S){
+        ui->avl_graphicsView->scale(1.1,  1.1);
+    }
 }
 
 void MainWindow::Draw_avl_tree(AVL_node* node, int x, int y)

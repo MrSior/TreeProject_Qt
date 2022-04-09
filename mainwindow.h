@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QKeyEvent>
 #include "rectangulartest.h"
 #include "avl_tree.h"
 
@@ -18,11 +19,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+    virtual void keyPressEvent( QKeyEvent *event );
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *avl_scene;
+    double avl_tree_scale;
     AVL_tree* avl_tree;
-
     void Draw_avl_tree(AVL_node* node, int x, int y);
 };
 #endif // MAINWINDOW_H
