@@ -147,7 +147,7 @@ void AVL_tree::Print() {
 }
 
 void AVL_tree::Delete(int key) {
-    AVL_delete(root, key);
+    root = AVL_delete(root, key);
 }
 
 AVL_node *AVL_tree::AVL_delete(AVL_node *node, int key) {
@@ -202,8 +202,9 @@ AVL_node *AVL_tree::AVL_delete(AVL_node *node, int key) {
 }
 
 AVL_node *AVL_tree::Get_min(AVL_node *node) {
-    while (node->left != nullptr){
-        node = node->left;
+    AVL_node* cnt = node;
+    while (cnt->left != nullptr){
+        cnt = cnt->left;
     }
-    return node;
+    return cnt;
 }

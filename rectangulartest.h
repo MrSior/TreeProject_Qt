@@ -3,19 +3,29 @@
 
 #include "QGraphicsItem"
 #include "QPainter"
+#include "QObject"
+#include "QMouseEvent"
+#include <QKeyEvent>
+#include "avl_tree.h"
+#include <QGraphicsScene>
+#include "QFont"
 
-class RectangularTest : public QGraphicsItem
+class RectangularTest: public QObject, public QGraphicsItem
 {
 public:
-    RectangularTest(int x, int y, int key);
-protected:
+    RectangularTest(int x, int y, int key, AVL_tree* avl_tree, QGraphicsScene *avl_scene);
+private:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
     QRectF boundingRect() const override;
 
-private:
+public:
     int x_offset, y_offset;
     int key;
-    QPoint points[4];
+    QPoint point;
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    AVL_tree* avl_tree;
+    QGraphicsScene *avl_scene;
+    void Draw_avl_tree(AVL_node* node, int x, int y);
 };
 
 #endif // RECTANGULARTEST_H

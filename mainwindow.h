@@ -4,8 +4,10 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include "QMouseEvent"
 #include "rectangulartest.h"
 #include "avl_tree.h"
+#include "QGraphicsSceneMouseEvent"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +23,12 @@ public:
 
 protected:
     virtual void keyPressEvent( QKeyEvent *event );
+    // virtual void mousePressEvent(QMouseEvent *event);
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *avl_scene;
-    double avl_tree_scale;
-    AVL_tree* avl_tree;
+    AVL_tree avl_tree;
     void Draw_avl_tree(AVL_node* node, int x, int y);
 };
 #endif // MAINWINDOW_H
