@@ -27,7 +27,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="Avl_tab">
      <attribute name="title">
@@ -48,6 +48,46 @@
      <attribute name="title">
       <string>Red-black tree</string>
      </attribute>
+     <widget class="QGraphicsView" name="RedBlack_graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>-5</x>
+        <y>0</y>
+        <width>551</width>
+        <height>501</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Treap_tab">
+     <attribute name="title">
+      <string>Treap</string>
+     </attribute>
+     <widget class="QGraphicsView" name="Treap_graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>-5</x>
+        <y>0</y>
+        <width>551</width>
+        <height>501</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Splay_tab">
+     <attribute name="title">
+      <string>Splay</string>
+     </attribute>
+     <widget class="QGraphicsView" name="Splay_graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>-5</x>
+        <y>0</y>
+        <width>551</width>
+        <height>501</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -63,14 +103,37 @@
    <widget class="QPushButton" name="AddElement">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>110</y>
+      <x>570</x>
+      <y>70</y>
       <width>80</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>110</y>
+      <width>251</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="DeleteElement">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>150</y>
+      <width>80</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delete</string>
     </property>
    </widget>
   </widget>

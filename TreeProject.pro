@@ -13,13 +13,19 @@ SOURCES += \
     avl_tree.cpp \
     main.cpp \
     mainwindow.cpp \
-    rectangulartest.cpp
+    rectangulartest.cpp \
+    treap.cpp \
+    treap_graphics_item.cpp \
+    treap_node.cpp
 
 HEADERS += \
     avl_node.h \
     avl_tree.h \
     mainwindow.h \
-    rectangulartest.h
+    rectangulartest.h \
+    treap.h \
+    treap_graphics_item.h \
+    treap_node.h
 
 FORMS += \
     mainwindow.ui
