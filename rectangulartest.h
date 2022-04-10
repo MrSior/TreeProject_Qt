@@ -22,10 +22,12 @@ public:
     int x_offset, y_offset;
     int key;
     QPoint point;
-    QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
+    //QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
     AVL_tree* avl_tree;
     QGraphicsScene *avl_scene;
     void Draw_avl_tree(AVL_node* node, int x, int y);
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
 #endif // RECTANGULARTEST_H

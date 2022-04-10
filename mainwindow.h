@@ -25,6 +25,9 @@ protected:
     virtual void keyPressEvent( QKeyEvent *event );
     // virtual void mousePressEvent(QMouseEvent *event);
 
+private slots:
+    void on_AddElement_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *avl_scene;

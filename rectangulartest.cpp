@@ -24,32 +24,23 @@ void RectangularTest::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 
 QRectF RectangularTest::boundingRect() const
 {
-    return QRectF(QPointF(-50 + x_offset, -25 + y_offset), QSizeF(100, 50));
+    return QRectF(QPointF(-100 + x_offset, -50 + y_offset), QSizeF(200, 100));
 }
 
-QVariant RectangularTest::itemChange(GraphicsItemChange change, const QVariant &value)
-{
-    if (change == QGraphicsItem::ItemSelectedChange)
-        {
-            if (value == true)
-            {
-                // do stuff if selected
-
-                qDebug() << key;
-                // avl_tree->Delete(key);
-                // emit Redraw_tree();
-                avl_scene->clear();
-                avl_tree->Delete(key);
-                Draw_avl_tree(avl_tree->Get_root(), 0, 0);
-            }
-            else
-            {
-                // do stuff if not selected
-            }
-        }
-
-    return QGraphicsItem::itemChange(change, value);
-}
+//QVariant RectangularTest::itemChange(GraphicsItemChange change, const QVariant &value)
+//{
+//    if (change == QGraphicsItem::ItemSelectedChange){
+//        if (value == true)
+//        {
+//            qDebug() << key;
+//            avl_scene->clear();
+//            avl_tree->Delete(key);
+//            Draw_avl_tree(avl_tree->Get_root(), 0, 0);
+//            qDebug() << "finish drawing";
+//        }
+//    }
+//    return QGraphicsItem::itemChange(change, value);
+//}
 
 void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
 {
@@ -63,11 +54,18 @@ void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
     }
     RectangularTest* rectTest;
     rectTest = new RectangularTest(x, y, node->key, avl_tree, avl_scene);
-    rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     avl_scene->addItem(rectTest);
-
-    //QObject::connect(rectTest, &RectangularTest::Redraw_tree, this, &MainWindow::Draw_trees);
 
     Draw_avl_tree(node->left, x - delta_x, y + 100);
     Draw_avl_tree(node->right, x + delta_x, y + 100);
+}
+
+void RectangularTest::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << key;
+    avl_scene->clear();
+    avl_tree->Delete(key);
+    Draw_avl_tree(avl_tree->Get_root(), 0, 0);
+    qDebug() << "finish drawing";
 }

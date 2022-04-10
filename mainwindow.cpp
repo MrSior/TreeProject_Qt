@@ -91,12 +91,24 @@ void MainWindow::Draw_avl_tree(AVL_node* node, int x, int y)
     }
     RectangularTest* rectTest;
     rectTest = new RectangularTest(x, y, node->key, &avl_tree, avl_scene);
-    rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     avl_scene->addItem(rectTest);
-
-    //QObject::connect(rectTest, &RectangularTest::Redraw_tree, this, &MainWindow::Draw_trees);
 
     Draw_avl_tree(node->left, x - delta_x, y + 100);
     Draw_avl_tree(node->right, x + delta_x, y + 100);
+}
+
+
+void MainWindow::on_AddElement_clicked()
+{
+    try {
+        QString str = ui->lineEdit->text();
+        int value = std::stoi(str.toStdString());
+        avl_tree.Insert(value);
+        avl_scene->clear();
+        Draw_avl_tree(avl_tree.Get_root(), 0, 0);
+    }  catch (...) {
+
+    }
 }
 
