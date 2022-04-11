@@ -10,6 +10,7 @@
 #include "QGraphicsSceneMouseEvent"
 #include "treap.h"
 #include "treap_graphics_item.h"
+#include "random"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -31,6 +32,8 @@ private slots:
     void on_AddElement_clicked();
 
     void on_DeleteElement_clicked();
+
+    void on_tabWidget_currentChanged(int index);
 
 private:
     Ui::MainWindow *ui;

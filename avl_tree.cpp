@@ -90,57 +90,6 @@ AVL_node* AVL_tree::AVL_insert(AVL_node* node, int key) {
         node->right = Right_rotate(node->right);
         return Left_rotate(node);
     }
-
-//    if (balance_factor > 1 && key < node->left->key){
-//        /* x and y on path from inserted value to z
-//         *       node
-//         *       / \
-//         *      y   T4
-//         *     / \
-//         *    x  T3
-//         *   / \
-//         *  T1 T2
-//         */
-//        return Right_rotate(node);
-//    } else if (balance_factor > 1 && key > node->left->key){
-//        /* x and y on path from inserted value to z
-//         *        node
-//         *        / \
-//         *       y   T4
-//         *      / \
-//         *     T1  x
-//         *        / \
-//         *       T2 T3
-//         */
-//        node->left = Left_rotate(node->left);
-//        return Right_rotate(node);
-//    }
-
-//    if (balance_factor < -1 && key < node->right->key){
-//        /* x and y on path from inserted value to z
-//         *         node
-//         *         / \
-//         *        T1  y
-//         *           / \
-//         *          x  T4
-//         *         / \
-//         *        T2 T3
-//         */
-//        node->right = Right_rotate(node->right);
-//        return Left_rotate(node);
-//    } else if (balance_factor < -1 && key > node->right->key){
-//        /* x and y on path from inserted value to z
-//         *        node
-//         *        / \
-//         *       T1  y
-//         *          / \
-//         *         T2  x
-//         *            / \
-//         *           T3 T4
-//         */
-//        return Left_rotate(node);
-//    }
-
     return node;
 }
 

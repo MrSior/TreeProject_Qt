@@ -97,7 +97,7 @@ void MainWindow::Draw_avl_tree(AVL_node* node, int x, int y)
         avl_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
     }
     RectangularTest* rectTest;
-    rectTest = new RectangularTest(x, y, node->key, &avl_tree, avl_scene);
+    rectTest = new RectangularTest(x, y, node->key, &avl_tree, avl_scene, &treap);
     //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     avl_scene->addItem(rectTest);
 
@@ -116,7 +116,7 @@ void MainWindow::Draw_treap(Treap_node *node, int x, int y)
         treap_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
     }
     Treap_graphics_item* rectTest;
-    rectTest = new Treap_graphics_item(x, y, node->key, node->priority, &treap, treap_scene);
+    rectTest = new Treap_graphics_item(x, y, node->key, node->priority, &treap, treap_scene, &avl_tree);
     //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     treap_scene->addItem(rectTest);
 
@@ -174,6 +174,19 @@ void MainWindow::on_DeleteElement_clicked()
         ui->lineEdit_2->setText("");
     }  catch (...) {
 
+    }
+}
+
+
+void MainWindow::on_tabWidget_currentChanged(int index)
+{
+    if(index == 0) {
+        avl_scene->clear();
+        Draw_avl_tree(avl_tree.Get_root(), 0, 0);
+    }
+    if(index == 2){
+        treap_scene->clear();
+        Draw_treap(treap.Get_root(), 0, 0);
     }
 }
 

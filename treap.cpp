@@ -5,7 +5,7 @@ std::pair<Treap_node *, Treap_node *> Treap::Split(Treap_node* tree, int split_k
     if (tree == nullptr) {
         return {nullptr, nullptr};
     }
-    if (split_key > tree->key) {
+    if (split_key >= tree->key) {
         auto res = Split(tree->Right, split_key);
         tree->Right = res.first;
         Update(tree);
@@ -36,7 +36,7 @@ Treap_node *Treap::Merge(Treap_node *first_tree, Treap_node *second_tree) {
 void Treap::Update(Treap_node* node)
 {
     if(node == nullptr) return;
-    node->height = Get_height(node->Left) + Get_height(node->Right) + 1;
+    node->height = std::max(Get_height(node->Left), Get_height(node->Right)) + 1;
 }
 
 int Treap::Get_height(Treap_node* node)
@@ -57,7 +57,7 @@ int Treap::Get_min(Treap_node *tree) {
 
 void Treap::Add(int data) {
     if (root == nullptr) {
-        root = new Treap_node(data);
+        root = new Treap_node(data, dis(gen));
         return;
     }
     Update(root);
@@ -65,7 +65,7 @@ void Treap::Add(int data) {
     Treap_node *left = res.first;
     Treap_node *right = res.second;
     if (Get_min(left) != data) {
-        auto *new_node = new Treap_node(data);
+        auto *new_node = new Treap_node(data, dis(gen));
         root = Merge(Merge(left, new_node), right);
     } else {
         root = Merge(left, right);
@@ -75,7 +75,11 @@ void Treap::Add(int data) {
 
 void Treap::Delete(int data)
 {
-
+    if(root == nullptr) return;
+    auto res = Split(root, data);
+    Treap_node *left = Split(res.first, data - 1).first;
+    Treap_node *right = res.second;
+    root = Merge(left, right);
 }
 
 Treap_node* Treap::Get_root()

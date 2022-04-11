@@ -1,6 +1,6 @@
 #include "rectangulartest.h"
 
-RectangularTest::RectangularTest(int x, int y, int key, AVL_tree* avl_tree, QGraphicsScene *avl_scene) : QGraphicsItem()
+RectangularTest::RectangularTest(int x, int y, int key, AVL_tree* avl_tree, QGraphicsScene *avl_scene, Treap* treap)
 {
     x_offset = x;
     y_offset = y;
@@ -8,6 +8,7 @@ RectangularTest::RectangularTest(int x, int y, int key, AVL_tree* avl_tree, QGra
     point = QPoint(x, y);
     this->avl_tree = avl_tree;
     this->avl_scene = avl_scene;
+    this->treap = treap;
 }
 
 void RectangularTest::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -27,21 +28,6 @@ QRectF RectangularTest::boundingRect() const
     return QRectF(QPointF(-100 + x_offset, -50 + y_offset), QSizeF(200, 100));
 }
 
-//QVariant RectangularTest::itemChange(GraphicsItemChange change, const QVariant &value)
-//{
-//    if (change == QGraphicsItem::ItemSelectedChange){
-//        if (value == true)
-//        {
-//            qDebug() << key;
-//            avl_scene->clear();
-//            avl_tree->Delete(key);
-//            Draw_avl_tree(avl_tree->Get_root(), 0, 0);
-//            qDebug() << "finish drawing";
-//        }
-//    }
-//    return QGraphicsItem::itemChange(change, value);
-//}
-
 void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
 {
     if(node == nullptr) return;
@@ -53,7 +39,7 @@ void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
         avl_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
     }
     RectangularTest* rectTest;
-    rectTest = new RectangularTest(x, y, node->key, avl_tree, avl_scene);
+    rectTest = new RectangularTest(x, y, node->key, avl_tree, avl_scene, treap);
     //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     avl_scene->addItem(rectTest);
 
@@ -63,9 +49,8 @@ void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
 
 void RectangularTest::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    qDebug() << key;
     avl_scene->clear();
     avl_tree->Delete(key);
+    treap->Delete(key);
     Draw_avl_tree(avl_tree->Get_root(), 0, 0);
-    qDebug() << "finish drawing";
 }

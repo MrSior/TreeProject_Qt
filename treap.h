@@ -2,6 +2,8 @@
 #define TREAP_H
 
 #include "treap_node.h"
+#include "random"
+#include "ctime"
 
 class Treap
 {
@@ -16,12 +18,17 @@ class Treap
 public:
     Treap(){
         root = nullptr;
+        gen = std::mt19937(time(nullptr));
+        dis = std::uniform_int_distribution<> (0, 10000);
     }
 
     int Get_min(Treap_node *tree);
     void Add(int data);
     void Delete(int data);
     Treap_node* Get_root();
+
+    std::mt19937 gen;
+    std::uniform_int_distribution<> dis;
 };
 
 #endif // TREAP_H
