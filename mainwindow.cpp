@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
     treap_scene = new QGraphicsScene(this);
     ui->Treap_graphicsView->setScene(treap_scene);
 
+    splay_scene = new QGraphicsScene(this);
+    ui->Splay_graphicsView->setScene(splay_scene);
+
     //avl_tree = new AVL_tree;
 //    avl_tree.Insert(9);
 //    avl_tree.Insert(5);
@@ -54,6 +57,9 @@ MainWindow::MainWindow(QWidget *parent)
    ui->Treap_graphicsView->setRenderHint(QPainter::Antialiasing);
    ui->Treap_graphicsView->scale(1, 1);
 
+   ui->Splay_graphicsView->setRenderHint(QPainter::Antialiasing);
+   ui->Splay_graphicsView->scale(1, 1);
+
 //    ui->avl_graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    ui->avl_graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
@@ -68,10 +74,12 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     if(event->key() == Qt::Key_W){
         ui->avl_graphicsView->scale(0.9 , 0.9);
         ui->Treap_graphicsView->scale(0.9 , 0.9);
+        ui->Splay_graphicsView->scale(0.9 , 0.9);
     }
     if(event->key() == Qt::Key_S){
         ui->avl_graphicsView->scale(1.1,  1.1);
         ui->Treap_graphicsView->scale(1.1 , 1.1);
+        ui->Splay_graphicsView->scale(1.1 , 1.1);
     }
 }
 
@@ -97,7 +105,7 @@ void MainWindow::Draw_avl_tree(AVL_node* node, int x, int y)
         avl_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
     }
     RectangularTest* rectTest;
-    rectTest = new RectangularTest(x, y, node->key, &avl_tree, avl_scene, &treap);
+    rectTest = new RectangularTest(x, y, node->key, avl_scene, &avl_tree, &treap, &splay_tree, ui->avl_graphicsView);
     //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     avl_scene->addItem(rectTest);
 
@@ -116,12 +124,30 @@ void MainWindow::Draw_treap(Treap_node *node, int x, int y)
         treap_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
     }
     Treap_graphics_item* rectTest;
-    rectTest = new Treap_graphics_item(x, y, node->key, node->priority, &treap, treap_scene, &avl_tree);
+    rectTest = new Treap_graphics_item(x, y, node->key, node->priority, treap_scene, &avl_tree, &treap, &splay_tree, ui->Treap_graphicsView);
     //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     treap_scene->addItem(rectTest);
 
     Draw_treap(node->Left, x - delta_x, y + 100);
     Draw_treap(node->Right, x + delta_x, y + 100);
+}
+
+void MainWindow::Draw_splay_tree(Splay_node *node, int x, int y)
+{
+    if(node == nullptr) return;
+    int delta_x = std::pow(2, node->height - 1) * 100 / 2;
+    if(node->left != nullptr) {
+        splay_scene->addLine(x, y, x - delta_x, y + 100, QPen(QColor(255, 255, 255)));
+    }
+    if(node->right != nullptr) {
+        splay_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
+    }
+    Splay_graphics_item* rectTest;
+    rectTest = new Splay_graphics_item(x, y, node->key, splay_scene, &avl_tree, &treap, &splay_tree, ui->Splay_graphicsView);
+    splay_scene->addItem(rectTest);
+
+    Draw_splay_tree(node->left, x - delta_x, y + 100);
+    Draw_splay_tree(node->right, x + delta_x, y + 100);
 }
 
 
@@ -137,13 +163,26 @@ void MainWindow::on_AddElement_clicked()
             } else {
                 avl_tree.Insert(std::stoi(num));
                 treap.Add(std::stoi(num));
+                splay_tree.Add(std::stoi(num));
                 num.clear();
             }
         }
-        avl_scene->clear();
-        treap_scene->clear();
+//        avl_scene->clear();
+//        treap_scene->clear();
+//        splay_scene->clear();
+        delete splay_scene;
+        splay_scene = new QGraphicsScene(this);
+        ui->Splay_graphicsView->setScene(splay_scene);
+        delete treap_scene;
+        treap_scene = new QGraphicsScene(this);
+        ui->Treap_graphicsView->setScene(treap_scene);
+        delete avl_scene;
+        avl_scene = new QGraphicsScene(this);
+        ui->avl_graphicsView->setScene(avl_scene);
+
         Draw_avl_tree(avl_tree.Get_root(), 0, 0);
         Draw_treap(treap.Get_root(), 0, 0);
+        Draw_splay_tree(splay_tree.Get_root(), 0, 0);
         ui->lineEdit->setText("");
     }  catch (...) {
 
@@ -164,13 +203,26 @@ void MainWindow::on_DeleteElement_clicked()
                 if(num.empty()) continue;
                 avl_tree.Delete(std::stoi(num));
                 treap.Delete(std::stoi(num));
+                splay_tree.Delete(std::stoi(num));
                 num.clear();
             }
         }
-        avl_scene->clear();
-        treap_scene->clear();
+//        avl_scene->clear();
+//        treap_scene->clear();
+//        splay_scene->clear();
+        delete splay_scene;
+        splay_scene = new QGraphicsScene(this);
+        ui->Splay_graphicsView->setScene(splay_scene);
+        delete treap_scene;
+        treap_scene = new QGraphicsScene(this);
+        ui->Treap_graphicsView->setScene(treap_scene);
+        delete avl_scene;
+        avl_scene = new QGraphicsScene(this);
+        ui->avl_graphicsView->setScene(avl_scene);
+
         Draw_avl_tree(avl_tree.Get_root(), 0, 0);
         Draw_treap(treap.Get_root(), 0, 0);
+        Draw_splay_tree(splay_tree.Get_root(), 0, 0);
         ui->lineEdit_2->setText("");
     }  catch (...) {
 
@@ -181,12 +233,25 @@ void MainWindow::on_DeleteElement_clicked()
 void MainWindow::on_tabWidget_currentChanged(int index)
 {
     if(index == 0) {
-        avl_scene->clear();
+//        avl_scene->clear();
+        delete avl_scene;
+        avl_scene = new QGraphicsScene(this);
+        ui->avl_graphicsView->setScene(avl_scene);
         Draw_avl_tree(avl_tree.Get_root(), 0, 0);
     }
     if(index == 2){
-        treap_scene->clear();
+//        treap_scene->clear();
+        delete treap_scene;
+        treap_scene = new QGraphicsScene(this);
+        ui->Treap_graphicsView->setScene(treap_scene);
         Draw_treap(treap.Get_root(), 0, 0);
+    }
+    if(index == 3){
+//        splay_scene->clear();
+        delete splay_scene;
+        splay_scene = new QGraphicsScene(this);
+        ui->Splay_graphicsView->setScene(splay_scene);
+        Draw_splay_tree(splay_tree.Get_root(), 0, 0);
     }
 }
 

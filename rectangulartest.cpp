@@ -1,6 +1,7 @@
 #include "rectangulartest.h"
 
-RectangularTest::RectangularTest(int x, int y, int key, AVL_tree* avl_tree, QGraphicsScene *avl_scene, Treap* treap)
+RectangularTest::RectangularTest(int x, int y, int key,
+                                 QGraphicsScene *avl_scene, AVL_tree* avl_tree, Treap* treap, Splay_tree* splay_tree, QGraphicsView* avl_view)
 {
     x_offset = x;
     y_offset = y;
@@ -9,6 +10,8 @@ RectangularTest::RectangularTest(int x, int y, int key, AVL_tree* avl_tree, QGra
     this->avl_tree = avl_tree;
     this->avl_scene = avl_scene;
     this->treap = treap;
+    this->splay_tree = splay_tree;
+    this->avl_view = avl_view;
 }
 
 void RectangularTest::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -39,7 +42,7 @@ void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
         avl_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
     }
     RectangularTest* rectTest;
-    rectTest = new RectangularTest(x, y, node->key, avl_tree, avl_scene, treap);
+    rectTest = new RectangularTest(x, y, node->key, avl_scene, avl_tree, treap, splay_tree, avl_view);
     //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     avl_scene->addItem(rectTest);
 
@@ -50,7 +53,11 @@ void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
 void RectangularTest::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     avl_scene->clear();
+//    delete avl_scene;
+//    avl_scene = new QGraphicsScene();
+//    avl_view->setScene(avl_scene);
     avl_tree->Delete(key);
     treap->Delete(key);
+    splay_tree->Delete(key);
     Draw_avl_tree(avl_tree->Get_root(), 0, 0);
 }

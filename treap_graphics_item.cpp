@@ -1,7 +1,9 @@
 #include "treap_graphics_item.h"
 
 
-Treap_graphics_item::Treap_graphics_item(int x, int y, int key, int priority, Treap *treap, QGraphicsScene *treap_scene, AVL_tree* avl_tree)
+Treap_graphics_item::Treap_graphics_item(int x, int y, int key, int priority,
+                                         QGraphicsScene *treap_scene, AVL_tree* avl_tree, Treap *treap, Splay_tree* splay_tree,
+                                         QGraphicsView* treap_view)
 {
     x_offset = x;
     y_offset = y;
@@ -11,6 +13,8 @@ Treap_graphics_item::Treap_graphics_item(int x, int y, int key, int priority, Tr
     this->treap = treap;
     this->treap_scene = treap_scene;
     this->avl_tree = avl_tree;
+    this->splay_tree = splay_tree;
+    this->treap_view = treap_view;
 }
 
 void Treap_graphics_item::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -23,11 +27,15 @@ void Treap_graphics_item::paint(QPainter *painter, const QStyleOptionGraphicsIte
     font.setPointSize(30);
     painter->setFont(font);
     painter->drawText(point.x() - 10, point.y() + 10, QString::fromStdString(std::to_string(key)));
+    painter->setPen(QColor(0, 255, 0));
+    font.setPointSize(15);
+    painter->setFont(font);
+    painter->drawText(point.x() - 50, point.y() - 25, QString::fromStdString(std::to_string(priority)));
 }
 
 QRectF Treap_graphics_item::boundingRect() const
 {
-    return QRectF(QPointF(-50 + x_offset, -25 + y_offset), QSizeF(100, 50));
+    return QRectF(QPointF(-60 + x_offset, -45 + y_offset), QSizeF(120, 90));
 }
 
 void Treap_graphics_item::Draw_treap(Treap_node *node, int x, int y)
@@ -41,7 +49,7 @@ void Treap_graphics_item::Draw_treap(Treap_node *node, int x, int y)
         treap_scene->addLine(x, y, x + delta_x, y + 100, QPen(QColor(255, 255, 255)));
     }
     Treap_graphics_item* rectTest;
-    rectTest = new Treap_graphics_item(x, y, node->key, node->priority, treap, treap_scene, avl_tree);
+    rectTest = new Treap_graphics_item(x, y, node->key, node->priority, treap_scene, avl_tree, treap, splay_tree, treap_view);
     //rectTest->setFlag(QGraphicsItem::ItemIsSelectable, true);
     treap_scene->addItem(rectTest);
 
@@ -51,8 +59,12 @@ void Treap_graphics_item::Draw_treap(Treap_node *node, int x, int y)
 
 void Treap_graphics_item::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    treap_scene->clear();
+   treap_scene->clear();
+//    delete treap_scene;
+//    treap_scene = new QGraphicsScene();
+//    treap_view->setScene(treap_scene);
     treap->Delete(key);
     avl_tree->Delete(key);
+    splay_tree->Delete(key);
     Draw_treap(treap->Get_root(), 0, 0);
 }

@@ -10,6 +10,8 @@
 #include "QGraphicsSceneMouseEvent"
 #include "treap.h"
 #include "treap_graphics_item.h"
+#include "splay_tree.h"
+#include "splay_graphics_item.h"
 #include "random"
 
 QT_BEGIN_NAMESPACE
@@ -39,9 +41,12 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *avl_scene;
     QGraphicsScene *treap_scene;
+    QGraphicsScene *splay_scene;
     AVL_tree avl_tree;
     Treap treap;
+    Splay_tree splay_tree;
     void Draw_avl_tree(AVL_node* node, int x, int y);
     void Draw_treap(Treap_node* node, int x, int y);
+    void Draw_splay_tree(Splay_node* node, int x, int y);
 };
 #endif // MAINWINDOW_H

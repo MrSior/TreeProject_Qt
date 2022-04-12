@@ -14,6 +14,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     rectangulartest.cpp \
+    splay_graphics_item.cpp \
+    splay_node.cpp \
+    splay_tree.cpp \
     treap.cpp \
     treap_graphics_item.cpp \
     treap_node.cpp
@@ -23,6 +26,9 @@ HEADERS += \
     avl_tree.h \
     mainwindow.h \
     rectangulartest.h \
+    splay_graphics_item.h \
+    splay_node.h \
+    splay_tree.h \
     treap.h \
     treap_graphics_item.h \
     treap_node.h

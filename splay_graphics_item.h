@@ -1,23 +1,23 @@
-#ifndef RECTANGULARTEST_H
-#define RECTANGULARTEST_H
+#ifndef SPLAY_GRAPHICS_ITEM_H
+#define SPLAY_GRAPHICS_ITEM_H
 
 #include "QGraphicsItem"
 #include "QPainter"
 #include "QObject"
 #include "QMouseEvent"
 #include <QKeyEvent>
-#include "avl_tree.h"
+#include "treap.h"
 #include <QGraphicsScene>
 #include "QGraphicsView"
 #include "QFont"
-#include "treap.h"
+#include "avl_tree.h"
 #include "splay_tree.h"
 
-class RectangularTest: public QObject, public QGraphicsItem
+class Splay_graphics_item : public QGraphicsItem
 {
 public:
-    RectangularTest(int x, int y, int key,
-                    QGraphicsScene *avl_scene, AVL_tree* avl_tree, Treap* treap, Splay_tree* splay_tree, QGraphicsView* avl_view);
+    Splay_graphics_item(int x, int y, int key,
+                        QGraphicsScene *splay_scene, AVL_tree* avl_tree, Treap* treap, Splay_tree* splay_tree, QGraphicsView* splay_view);
 private:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
     QRectF boundingRect() const override;
@@ -26,14 +26,14 @@ public:
     int x_offset, y_offset;
     int key;
     QPoint point;
-    AVL_tree* avl_tree;
     Treap* treap;
+    AVL_tree* avl_tree;
     Splay_tree* splay_tree;
-    QGraphicsScene *avl_scene;
-    QGraphicsView* avl_view;
-    void Draw_avl_tree(AVL_node* node, int x, int y);
+    QGraphicsScene *splay_scene;
+    QGraphicsView* splay_view;
+    void Draw_splay_tree(Splay_node* node, int x, int y);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
-#endif // RECTANGULARTEST_H
+#endif // SPLAY_GRAPHICS_ITEM_H
