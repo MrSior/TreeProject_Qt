@@ -10,6 +10,7 @@ public:
     int priority;
 
     int height;
+    int count;
 
     Treap_node *Left;
     Treap_node *Right;

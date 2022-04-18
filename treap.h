@@ -15,11 +15,12 @@ class Treap
     void Update(Treap_node* node);
     int Get_height(Treap_node* node);
 
+    int Check_height(Treap_node* node);
 public:
     Treap(){
         root = nullptr;
         gen = std::mt19937(time(nullptr));
-        dis = std::uniform_int_distribution<> (0, 10000);
+        dis = std::uniform_int_distribution<> (1, 10000);
     }
 
     int Get_min(Treap_node *tree);

@@ -14,6 +14,7 @@ int AVL_tree::Get_height(AVL_node *node) {
 
 void AVL_tree::Insert(int key) {
     root = AVL_insert(root, key);
+    Recount(root);
 }
 
 
@@ -136,6 +137,13 @@ void AVL_tree::Print_inorder(AVL_node* node) {
     Print_inorder(node->right);
 }
 
+int AVL_tree::Recount(AVL_node *node)
+{
+    if(node == nullptr) return 0;
+    node->count = Recount(node->left) + Recount(node->right) + 1;
+    return node->count;
+}
+
 AVL_node *AVL_tree::Get_root()
 {
     if(root == nullptr) return nullptr;
@@ -148,6 +156,7 @@ void AVL_tree::Print() {
 
 void AVL_tree::Delete(int key) {
     root = AVL_delete(root, key);
+    Recount(root);
 }
 
 AVL_node *AVL_tree::AVL_delete(AVL_node *node, int key) {

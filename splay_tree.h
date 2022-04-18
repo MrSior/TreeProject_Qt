@@ -28,6 +28,8 @@ public:
     void Delete(int key);
 
     void Print(Splay_node* node);
+
+    int Check_height(Splay_node* node);
 };
 
 #endif // SPLAY_TREE_H

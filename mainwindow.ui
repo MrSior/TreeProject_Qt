@@ -31,7 +31,7 @@
     </property>
     <widget class="QWidget" name="Avl_tab">
      <attribute name="title">
-      <string>AVL_tree</string>
+      <string>AVL tree</string>
      </attribute>
      <widget class="QGraphicsView" name="avl_graphicsView">
       <property name="geometry">

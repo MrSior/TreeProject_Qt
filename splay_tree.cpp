@@ -97,7 +97,7 @@ Splay_node *Splay_tree::Splay(Splay_node *node, int key) {
 
             node->right->left = Splay(node->right->left, key);
             if (node->right->left != nullptr) {
-                node->right->left = Right_rotate(node->right->left);
+                node->right = Right_rotate(node->right);
             }
         }
 
@@ -138,26 +138,26 @@ void Splay_tree::Add(int key) {
     root = Splay_insert(root, key);
 }
 
-Splay_node *Splay_tree::Splay_delete(Splay_node* node, int key) {
-    if (node == nullptr) return nullptr;
+//Splay_node *Splay_tree::Splay_delete(Splay_node* node, int key) {
+//    if (node == nullptr) return nullptr;
 
-    node = Splay(node, key);
-    if (node->key != key){
-        return nullptr;
-    } else {
-        if(node->right == nullptr){
-            Splay_node* new_root = node->left;
-            delete node;
-            return new_root;
-        } else {
-            Splay_node* tmp = Get_min(node->right);
-            node->key = tmp->key;
-            node->right = Splay_delete(node->right, node->key);
-        }
-    }
-    node->height = std::max(Get_height(node->left), Get_height(node->right)) + 1;
-    return node;
-}
+//    node = Splay(node, key);
+//    if (node->key != key){
+//        return nullptr;
+//    } else {
+//        if(node->right == nullptr){
+//            Splay_node* new_root = node->left;
+//            delete node;
+//            return new_root;
+//        } else {
+//            Splay_node* tmp = Get_min(node->right);
+//            node->key = tmp->key;
+//            node->right = Splay_delete(node->right, node->key);
+//        }
+//    }
+//    node->height = std::max(Get_height(node->left), Get_height(node->right)) + 1;
+//    return node;
+//}
 
 Splay_node *Splay_tree::Get_min(Splay_node *node) {
     while (node->left != nullptr){
@@ -173,10 +173,47 @@ void Splay_tree::Delete(int key) {
 void Splay_tree::Print(Splay_node* node) {
     if (node == nullptr) return;
     Print(node->left);
-    // std::cout << node->key << " ";
+    //std::cout << node->key << " ";
     Print(node->right);
 }
 
 Splay_node *Splay_tree::Get_root() {
     return root;
+}
+
+int Splay_tree::Check_height(Splay_node *node)
+{
+    if(node == nullptr) return 0;
+    node->height = std::max(Check_height(node->left), Check_height(node->right)) + 1;
+    return node->height;
+}
+
+
+Splay_node *Splay_tree::Splay_delete(Splay_node* node, int key) {
+    if (node == nullptr) return nullptr;
+
+    node = Splay(node, key);
+    if (node->key != key){
+        return nullptr;
+    } else {
+        Splay_node* root1 = node->left;
+        Splay_node* root2 = node->right;
+        if(node->right == nullptr) return root1;
+        Splay_node* tmp = Get_min(root2);
+        root2 = Splay(root2, tmp->key);
+        root2->left = root1;
+        return root2;
+
+//        if(node->right == nullptr){
+//            Splay_node* new_root = node->left;
+//            delete node;
+//            return new_root;
+//        } else {
+//            Splay_node* tmp = Get_min(node->right);
+//            node->key = tmp->key;
+//            node->right = Splay_delete(node->right, node->key);
+//        }
+    }
+    //node->height = std::max(Get_height(node->left), Get_height(node->right)) + 1;
+    return node;
 }

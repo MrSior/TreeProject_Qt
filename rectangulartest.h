@@ -12,6 +12,8 @@
 #include "QFont"
 #include "treap.h"
 #include "splay_tree.h"
+#include "shadow_tree_node.h"
+#include "queue"
 
 class RectangularTest: public QObject, public QGraphicsItem
 {
@@ -32,6 +34,10 @@ public:
     QGraphicsScene *avl_scene;
     QGraphicsView* avl_view;
     void Draw_avl_tree(AVL_node* node, int x, int y);
+    Shadow_tree_node* build_shadow_tree(AVL_node* node, int level, int& column);
+
+    int space_x;
+    int space_y;
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 };

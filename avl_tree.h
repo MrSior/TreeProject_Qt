@@ -20,6 +20,7 @@ private:
 
     AVL_node* Get_min(AVL_node* node);
     void Print_inorder(AVL_node* node);
+    int Recount(AVL_node* node);
 public:
     AVL_tree(){
         root = nullptr;

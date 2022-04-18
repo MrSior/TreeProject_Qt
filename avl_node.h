@@ -9,6 +9,7 @@ public:
     AVL_node* left;
     AVL_node* right;
     int height;
+    int count;
 
 public:
 

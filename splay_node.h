@@ -8,12 +8,14 @@ public:
     int key;
     Splay_node *left, *right;
     int height;
+    int count;
 
     Splay_node(){
         left = nullptr;
         right = nullptr;
         key = 0;
         height = 1;
+        count = 1;
     }
 
     explicit Splay_node(int key){
@@ -21,6 +23,7 @@ public:
         left = nullptr;
         right = nullptr;
         height = 1;
+        count = 1;
     }
 };
 

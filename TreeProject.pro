@@ -14,6 +14,10 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     rectangulartest.cpp \
+    red_black_node.cpp \
+    red_black_tree.cpp \
+    redblack_graphics_item.cpp \
+    shadow_tree_node.cpp \
     splay_graphics_item.cpp \
     splay_node.cpp \
     splay_tree.cpp \
@@ -26,6 +30,10 @@ HEADERS += \
     avl_tree.h \
     mainwindow.h \
     rectangulartest.h \
+    red_black_node.h \
+    red_black_tree.h \
+    redblack_graphics_item.h \
+    shadow_tree_node.h \
     splay_graphics_item.h \
     splay_node.h \
     splay_tree.h \

@@ -5,6 +5,7 @@ Treap_node::Treap_node()
     this->Left = nullptr;
     this->Right = nullptr;
     height = 0;
+    count = 1;
 }
 
 Treap_node::Treap_node(int key, int priority, Treap_node *Left, Treap_node *Right)
@@ -20,4 +21,5 @@ Treap_node::Treap_node(int key, int priority, Treap_node *Left, Treap_node *Righ
     this->Left = Left;
     this->Right = Right;
     height = 0;
+    count = 1;
 }

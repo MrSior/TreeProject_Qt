@@ -45,6 +45,13 @@ int Treap::Get_height(Treap_node* node)
     return node->height;
 }
 
+int Treap::Check_height(Treap_node *node)
+{
+    if(node == nullptr) return 0;
+    node->height = std::max(Check_height(node->Left), Check_height(node->Right)) + 1;
+    return node->height;
+}
+
 int Treap::Get_min(Treap_node *tree) {
     if (tree == nullptr) {
         return -1;
@@ -71,6 +78,7 @@ void Treap::Add(int data) {
         root = Merge(left, right);
     }
     Update(root);
+    Check_height(root);
 }
 
 void Treap::Delete(int data)
@@ -80,6 +88,7 @@ void Treap::Delete(int data)
     Treap_node *left = Split(res.first, data - 1).first;
     Treap_node *right = res.second;
     root = Merge(left, right);
+    Check_height(root);
 }
 
 Treap_node* Treap::Get_root()
