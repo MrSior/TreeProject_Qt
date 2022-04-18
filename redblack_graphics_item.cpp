@@ -70,4 +70,5 @@ void RedBlack_graphics_item::mousePressEvent(QGraphicsSceneMouseEvent *event)
     rb_tree->Delete(key);
     treap->Delete(key);
     splay_tree->Delete(key);
+    qDebug() << key;
 }

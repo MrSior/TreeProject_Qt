@@ -211,13 +211,17 @@ void Red_Black_tree::Fix_delete(Red_Black_node *node) {
             if (is_Black(node->Get_sibling()) && is_Red(node->Get_sibling_right())) {
                 std::swap(node->Get_sibling()->color, node->parent->color);
                 node->parent->color = 'B';
-                node->Get_sibling()->color = 'B';
-                Left_rotate(root, node->parent);
+                node->Get_sibling_right()->color = 'B';
+                auto tmp = node->parent;
+                Left_rotate(root, tmp);
+//                Left_rotate(root, node->parent);
                 return;
             } else if (is_Black(node->Get_sibling()) &&
                        is_Red(node->Get_sibling_left()) && is_Black(node->Get_sibling_right())) {
                 std::swap(node->Get_sibling_left()->color, node->Get_sibling()->color);
-                Right_rotate(root, node->parent->right);
+                auto tmp = node->parent->right;
+                Right_rotate(root, tmp);
+//                Right_rotate(root, node->parent->right);
             } else if (is_Black(node->Get_sibling()) &&
                        is_Black(node->Get_sibling_left()) && is_Black(node->Get_sibling_right())) {
                 if (is_Red(node->parent)) {
@@ -225,23 +229,32 @@ void Red_Black_tree::Fix_delete(Red_Black_node *node) {
                     node->parent->color = 'B';
                     return;
                 } else {
+                    node->Get_sibling()->color = 'R';
+                    node->parent->color = 'B';
                     node = node->parent;
                 }
             } else if (is_Red(node->Get_sibling())) {
                 node->parent->color = 'R';
                 node->Get_sibling()->color = 'B';
-                Left_rotate(root, node->parent);
+                auto tmp = node->parent;
+                Left_rotate(root, tmp);
+//                Left_rotate(root, node->parent);
             }
         } else {
             if (is_Black(node->Get_sibling()) && is_Red(node->Get_sibling_left())){
                 std::swap(node->Get_sibling()->color, node->parent->color);
+                node->parent->color = 'B';
                 node->Get_sibling_left()->color = 'B';
-                Right_rotate(root, node->parent);
+                auto tmp = node->parent;
+                Right_rotate(root, tmp);
+//                Right_rotate(root, node->parent);
                 return;
             } else if (is_Black(node->Get_sibling()) && is_Red(node->Get_sibling_right()) &&
                        is_Black(node->Get_sibling_left())){
                 std::swap(node->Get_sibling()->color, node->Get_sibling_right()->color);
-                Left_rotate(root, node->parent->left);
+                auto tmp = node->parent->left;
+                Left_rotate(root, tmp);
+//                Left_rotate(root, node->parent->left);
             } else if (is_Black(node->Get_sibling()) &&
                        is_Black(node->Get_sibling_left()) && is_Black(node->Get_sibling_right())){
                 if (is_Red(node->parent)){
@@ -256,6 +269,9 @@ void Red_Black_tree::Fix_delete(Red_Black_node *node) {
             } else if (is_Red(node->Get_sibling())){
                 node->Get_sibling()->color = 'B';
                 node->parent->color = 'R';
+                auto tmp = node->parent;
+                Right_rotate(root, tmp);
+//                Right_rotate(root, node->parent);
             }
         }
     }

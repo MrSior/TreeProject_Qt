@@ -382,13 +382,16 @@ void MainWindow::on_AddElement_clicked()
     try {
         std::string str = ui->lineEdit->text().toStdString();
         if(str.empty()){
+            QString added = "Added:";
             for(int i = 0; i < 20; ++i){
                 int num = dis(gen);
                 avl_tree.Insert(num);
                 treap.Add(num);
                 splay_tree.Add(num);
                 rb_tree.Add(num);
+                added += " " + QString::fromStdString(std::to_string(num));
             }
+            qDebug() << added;
         } else {
             str += ' ';
             std::string num;
