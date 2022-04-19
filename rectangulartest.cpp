@@ -1,7 +1,7 @@
 #include "rectangulartest.h"
 
 RectangularTest::RectangularTest(int x, int y, int key,
-                                 QGraphicsScene *avl_scene, AVL_tree* avl_tree, Treap* treap, Splay_tree* splay_tree, QGraphicsView* avl_view)
+                                 QGraphicsScene *avl_scene, AVL_tree* avl_tree, Treap* treap, Splay_tree* splay_tree, Red_Black_tree* rb_tree)
 {
     x_offset = x;
     y_offset = y;
@@ -11,7 +11,7 @@ RectangularTest::RectangularTest(int x, int y, int key,
     this->avl_scene = avl_scene;
     this->treap = treap;
     this->splay_tree = splay_tree;
-    this->avl_view = avl_view;
+    this->rb_tree = rb_tree;
     space_x = 100;
     space_y = 100;
 }
@@ -84,7 +84,7 @@ void RectangularTest::Draw_avl_tree(AVL_node *node, int x, int y)
             queue.push(cur_node->right);
         }
         RectangularTest* node_shape;
-        node_shape = new RectangularTest(x, y, cur_node->key, avl_scene, avl_tree, treap, splay_tree, avl_view);
+        node_shape = new RectangularTest(x, y, cur_node->key, avl_scene, avl_tree, treap, splay_tree, rb_tree);
         avl_scene->addItem(node_shape);
     }
 }
@@ -111,12 +111,13 @@ Shadow_tree_node *RectangularTest::build_shadow_tree(AVL_node *node, int level, 
 
 void RectangularTest::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    avl_scene->clear();
+//    avl_scene->clear();
 //    delete avl_scene;
 //    avl_scene = new QGraphicsScene();
 //    avl_view->setScene(avl_scene);
     avl_tree->Delete(key);
     treap->Delete(key);
     splay_tree->Delete(key);
+    rb_tree->Delete(key);
     //Draw_avl_tree(avl_tree->Get_root(), 0, 0);
 }

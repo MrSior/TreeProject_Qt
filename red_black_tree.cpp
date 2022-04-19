@@ -6,20 +6,18 @@ void Red_Black_tree::Left_rotate(Red_Black_node*& root_node, Red_Black_node*& no
 
     node->right = node_right->left;
 
-    if (node->right != nullptr)
+    if (node->right != nullptr){
         node->right->parent = node;
-
+    }
     node_right->parent = node->parent;
 
-    if (node->parent == nullptr)
+    if (node->parent == nullptr){
         root_node = node_right;
-
-    else if (node == node->parent->left)
+    } else if (node == node->parent->left){
         node->parent->left = node_right;
-
-    else
+    } else{
         node->parent->right = node_right;
-
+    }
     node_right->left = node;
     node->parent = node_right;
 }
@@ -29,20 +27,18 @@ void Red_Black_tree::Right_rotate(Red_Black_node*& root_node, Red_Black_node*& n
 
     node->left = node_left->right;
 
-    if (node->left != NULL)
+    if (node->left != nullptr){
         node->left->parent = node;
-
+    }
     node_left->parent = node->parent;
 
-    if (node->parent == NULL)
+    if (node->parent == nullptr){
         root_node = node_left;
-
-    else if (node == node->parent->left)
+    } else if (node == node->parent->left){
         node->parent->left = node_left;
-
-    else
+    } else{
         node->parent->right = node_left;
-
+    }
     node_left->right = node;
     node->parent = node_left;
 }

@@ -147,7 +147,7 @@ void MainWindow::Draw_avl_tree(AVL_node* node)
             queue.push(cur_node->right);
         }
         RectangularTest* node_shape;
-        node_shape = new RectangularTest(x, y, cur_node->key, avl_scene, &avl_tree, &treap, &splay_tree, ui->avl_graphicsView);
+        node_shape = new RectangularTest(x, y, cur_node->key, avl_scene, &avl_tree, &treap, &splay_tree, &rb_tree);
         avl_scene->addItem(node_shape);
     }
 }
@@ -197,7 +197,7 @@ void MainWindow::Draw_treap(Treap_node *node)
             queue.push(cur_node->right);
         }
         Treap_graphics_item* node_shape;
-        node_shape = new Treap_graphics_item(x, y, cur_node->key, cur_node->priority, treap_scene, &avl_tree, &treap, &splay_tree);
+        node_shape = new Treap_graphics_item(x, y, cur_node->key, cur_node->priority, treap_scene, &avl_tree, &treap, &splay_tree, &rb_tree);
         treap_scene->addItem(node_shape);
     }
 }
@@ -242,7 +242,7 @@ void MainWindow::Draw_splay_tree(Splay_node *node)
             queue.push(cur_node->right);
         }
         Splay_graphics_item* rectTest;
-        rectTest = new Splay_graphics_item(x, y, cur_node->key, splay_scene, &avl_tree, &treap, &splay_tree);
+        rectTest = new Splay_graphics_item(x, y, cur_node->key, splay_scene, &avl_tree, &treap, &splay_tree, &rb_tree);
         splay_scene->addItem(rectTest);
     }
 }

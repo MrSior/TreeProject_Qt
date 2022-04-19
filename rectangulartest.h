@@ -14,12 +14,13 @@
 #include "splay_tree.h"
 #include "shadow_tree_node.h"
 #include "queue"
+#include "red_black_tree.h"
 
 class RectangularTest: public QObject, public QGraphicsItem
 {
 public:
     RectangularTest(int x, int y, int key,
-                    QGraphicsScene *avl_scene, AVL_tree* avl_tree, Treap* treap, Splay_tree* splay_tree, QGraphicsView* avl_view);
+                    QGraphicsScene *avl_scene, AVL_tree* avl_tree, Treap* treap, Splay_tree* splay_tree, Red_Black_tree* rb_tree);
 private:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
     QRectF boundingRect() const override;
@@ -31,8 +32,8 @@ public:
     AVL_tree* avl_tree;
     Treap* treap;
     Splay_tree* splay_tree;
+    Red_Black_tree* rb_tree;
     QGraphicsScene *avl_scene;
-    QGraphicsView* avl_view;
     void Draw_avl_tree(AVL_node* node, int x, int y);
     Shadow_tree_node* build_shadow_tree(AVL_node* node, int level, int& column);
 

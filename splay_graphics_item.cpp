@@ -1,7 +1,7 @@
 #include "splay_graphics_item.h"
 
 Splay_graphics_item::Splay_graphics_item(int x, int y, int key,
-                                         QGraphicsScene *splay_scene, AVL_tree *avl_tree, Treap *treap, Splay_tree *splay_tree)
+                                         QGraphicsScene *splay_scene, AVL_tree *avl_tree, Treap *treap, Splay_tree *splay_tree, Red_Black_tree* rb_tree)
 {
     x_offset = x;
     y_offset = y;
@@ -11,6 +11,7 @@ Splay_graphics_item::Splay_graphics_item(int x, int y, int key,
     this->avl_tree = avl_tree;
     this->treap = treap;
     this->splay_tree = splay_tree;
+    this->rb_tree = rb_tree;
     space_x = 100;
     space_y = 100;
 }
@@ -79,7 +80,7 @@ void Splay_graphics_item::Draw_splay_tree(Splay_node *node, int x, int y)
             queue.push(cur_node->right);
         }
         Splay_graphics_item* rectTest;
-        rectTest = new Splay_graphics_item(x, y, cur_node->key, splay_scene, avl_tree, treap, splay_tree);
+        rectTest = new Splay_graphics_item(x, y, cur_node->key, splay_scene, avl_tree, treap, splay_tree, rb_tree);
         splay_scene->addItem(rectTest);
     }
 }
@@ -106,12 +107,13 @@ Shadow_tree_node *Splay_graphics_item::build_shadow_tree(Splay_node *node, int l
 
 void Splay_graphics_item::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    splay_scene->clear();
+//    splay_scene->clear();
 //    delete splay_scene;
 //    splay_scene = new QGraphicsScene();
 //    splay_view->setScene(splay_scene);
     splay_tree->Delete(key);
     treap->Delete(key);
     avl_tree->Delete(key);
+    rb_tree->Delete(key);
     //Draw_splay_tree(splay_tree->Get_root(), 0, 0);
 }

@@ -2,7 +2,7 @@
 
 
 Treap_graphics_item::Treap_graphics_item(int x, int y, int key, int priority,
-                                         QGraphicsScene *treap_scene, AVL_tree* avl_tree, Treap *treap, Splay_tree* splay_tree)
+                                         QGraphicsScene *treap_scene, AVL_tree* avl_tree, Treap *treap, Splay_tree* splay_tree, Red_Black_tree* rb_tree)
 {
     x_offset = x;
     y_offset = y;
@@ -13,6 +13,7 @@ Treap_graphics_item::Treap_graphics_item(int x, int y, int key, int priority,
     this->treap_scene = treap_scene;
     this->avl_tree = avl_tree;
     this->splay_tree = splay_tree;
+    this->rb_tree = rb_tree;
     space_x = 100;
     space_y = 100;
 }
@@ -90,7 +91,7 @@ void Treap_graphics_item::Draw_treap(Treap_node *node)
             queue.push(cur_node->right);
         }
         Treap_graphics_item* node_shape;
-        node_shape = new Treap_graphics_item(x, y, cur_node->key, cur_node->priority, treap_scene, avl_tree, treap, splay_tree);
+        node_shape = new Treap_graphics_item(x, y, cur_node->key, cur_node->priority, treap_scene, avl_tree, treap, splay_tree, rb_tree);
         treap_scene->addItem(node_shape);
     }
 }
@@ -118,12 +119,13 @@ Shadow_tree_node *Treap_graphics_item::build_shadow_tree(Treap_node *node, int l
 
 void Treap_graphics_item::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-   treap_scene->clear();
+//    treap_scene->clear();
 //    delete treap_scene;
 //    treap_scene = new QGraphicsScene();
 //    treap_view->setScene(treap_scene);
     treap->Delete(key);
     avl_tree->Delete(key);
     splay_tree->Delete(key);
+    rb_tree->Delete(key);
     //Draw_treap(treap->Get_root());
 }
