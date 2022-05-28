@@ -383,7 +383,9 @@ void MainWindow::on_AddElement_clicked()
         std::string str = ui->lineEdit->text().toStdString();
         if(str.empty()){
             QString added = "Added:";
-            for(int i = 0; i < 20; ++i){
+            int itr = std::stoi(ui->lineEdit_3->text().toStdString());
+            ui->lineEdit_3->setText("");
+            for(int i = 0; i < itr; ++i){
                 int num = dis(gen);
                 avl_tree.Insert(num);
                 treap.Add(num);
@@ -445,12 +447,14 @@ void MainWindow::on_DeleteElement_clicked()
                 avl_tree.Delete(std::stoi(num));
                 treap.Delete(std::stoi(num));
                 splay_tree.Delete(std::stoi(num));
+                rb_tree.Delete(std::stoi(num));
                 num.clear();
             }
         }
         avl_scene->clear();
         treap_scene->clear();
         splay_scene->clear();
+        red_black_scene->clear();
 //        delete splay_scene;
 //        splay_scene = new QGraphicsScene(this);
 //        ui->Splay_graphicsView->setScene(splay_scene);
@@ -464,6 +468,7 @@ void MainWindow::on_DeleteElement_clicked()
         Draw_avl_tree(avl_tree.Get_root());
         Draw_treap(treap.Get_root());
         Draw_splay_tree(splay_tree.Get_root());
+        Draw_rb_tree(rb_tree.Get_root());
         ui->lineEdit_2->setText("");
     }  catch (...) {
 

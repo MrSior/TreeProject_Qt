@@ -136,6 +136,16 @@
      <string>Delete</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="lineEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>190</y>
+      <width>251</width>
+      <height>24</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
